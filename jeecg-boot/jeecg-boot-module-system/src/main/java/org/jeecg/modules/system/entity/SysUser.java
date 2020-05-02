@@ -3,7 +3,6 @@ package org.jeecg.modules.system.entity;
 import java.util.Date;
 
 import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jeecg.common.aspect.annotation.Dict;
 import org.jeecgframework.poi.excel.annotation.Excel;
@@ -170,4 +169,56 @@ public class SysUser implements Serializable {
     @Excel(name="负责部门",width = 15,dictTable ="sys_depart",dicText = "depart_name",dicCode = "id")
     @Dict(dictTable ="sys_depart",dicText = "depart_name",dicCode = "id")
     private String departIds;
+
+    public enum Identity{
+        /**
+         * 用户类型
+         */
+        SYSTEM_ADMIN("系统管理员", 1),
+        AGENT("代理商", 2),
+        BUSINESS("代理商", 3),
+        NORMAL_USER("普通用户", 4);
+
+        private String name;
+
+        private int identity;
+
+        Identity(String name, int identity) {
+            this.name = name;
+            this.identity = identity;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public int getIdentity() {
+            return identity;
+        }
+    }
+
+    public enum Status{
+        /**
+         * 用户状态
+         */
+        NORMAL("正常", 1),
+        FROZEN("冻结", 2);
+
+        private String name;
+
+        private int status;
+
+        Status(String name, int status) {
+            this.name = name;
+            this.status = status;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public int getStatus() {
+            return status;
+        }
+    }
 }
