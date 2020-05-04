@@ -14,4 +14,10 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface HotelMapper extends BaseMapper<Hotel> {
 
+    /**
+     * 修改酒店状态
+     * @param hotelId
+     * @param status
+     */
+    void updateStatusById(String hotelId, Integer status);
 }

@@ -5,6 +5,7 @@ import java.util.Date;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.models.auth.In;
 import lombok.Data;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.jeecg.common.system.base.entity.JeecgEntity;
@@ -26,34 +27,6 @@ import io.swagger.annotations.ApiModelProperty;
 public class Hotel extends JeecgEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
-	/**主键*//*
-	@TableId(type = IdType.ID_WORKER_STR)
-    @ApiModelProperty(value = "主键")
-    private String id;
-	*//**创建人*//*
-	@Excel(name = "创建人", width = 15)
-    @ApiModelProperty(value = "创建人")
-    private String createBy;
-	*//**创建日期*//*
-	@Excel(name = "创建日期", width = 20, format = "yyyy-MM-dd HH:mm:ss")
-	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "创建日期")
-    private Date createTime;
-	*//**更新人*//*
-	@Excel(name = "更新人", width = 15)
-    @ApiModelProperty(value = "更新人")
-    private String updateBy;
-	*//**更新日期*//*
-	@Excel(name = "更新日期", width = 20, format = "yyyy-MM-dd HH:mm:ss")
-	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "更新日期")
-    private Date updateTime;
-	*//**所属部门*//*
-	@Excel(name = "所属部门", width = 15)
-    @ApiModelProperty(value = "所属部门")
-    private String sysOrgCode;*/
 	/**商家名称*/
 	@Excel(name = "商家名称", width = 15)
     @ApiModelProperty(value = "商家名称")
@@ -118,4 +91,42 @@ public class Hotel extends JeecgEntity implements Serializable {
 	@Excel(name = "地理位置", width = 15)
     @ApiModelProperty(value = "地理位置")
     private String position;
+    /**酒店的状态（0：未审核，1：已审核，2：已冻结）*/
+    @Excel(name = "酒店的状态（0：未审核，1：已审核，2：已冻结）", width = 15)
+    @ApiModelProperty(value = "酒店的状态（0：未审核，1：已审核，2：已冻结）")
+    private java.lang.Integer status;
+
+
+    public enum HotelStatus {
+        WAIT_EXAMINE(0, "待审核"),
+        ALREADY_EXAMINE(1, "已审核"),
+        ALREADY_FROZE(2, "已冻结");
+
+        private Integer status;
+
+        private String name;
+
+        HotelStatus(Integer status, String name) {
+            this.status = status;
+            this.name = name;
+        }
+
+        public Integer getStatus() {
+            return status;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public static HotelStatus valueByStatus(Integer in){
+            for(HotelStatus status : HotelStatus.values()){
+                if(status.status == in){
+                    return status;
+                }
+            }
+
+            throw new IllegalArgumentException("找不到状态：" + in);
+        }
+    }
 }

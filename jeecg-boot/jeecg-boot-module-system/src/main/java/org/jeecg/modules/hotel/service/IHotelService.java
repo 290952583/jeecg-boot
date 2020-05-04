@@ -1,6 +1,7 @@
 package org.jeecg.modules.hotel.service;
 
 import org.jeecg.modules.hotel.entity.HotelGuestRoom;
+import org.jeecg.modules.hotel.entity.HotelAttachment;
 import org.jeecg.modules.hotel.entity.Hotel;
 import com.baomidou.mybatisplus.extension.service.IService;
 import java.io.Serializable;
@@ -19,13 +20,13 @@ public interface IHotelService extends IService<Hotel> {
 	 * 添加一对多
 	 * 
 	 */
-	public void saveMain(Hotel hotel, List<HotelGuestRoom> hotelGuestRoomList) ;
+	public void saveMain(Hotel hotel, List<HotelGuestRoom> hotelGuestRoomList, List<HotelAttachment> hotelAttachmentList) ;
 	
 	/**
 	 * 修改一对多
 	 * 
 	 */
-	public void updateMain(Hotel hotel, List<HotelGuestRoom> hotelGuestRoomList);
+	public void updateMain(Hotel hotel, List<HotelGuestRoom> hotelGuestRoomList, List<HotelAttachment> hotelAttachmentList);
 	
 	/**
 	 * 删除一对多
@@ -36,5 +37,11 @@ public interface IHotelService extends IService<Hotel> {
 	 * 批量删除一对多
 	 */
 	public void delBatchMain(Collection<? extends Serializable> idList);
-	
+
+	/**
+	 * 修改状态
+	 * @param hotelId id
+	 * @param status 状态
+	 */
+	public void updateStatus(String hotelId, Integer status);
 }

@@ -1,9 +1,12 @@
 package org.jeecg.modules.hotel.vo;
 
 import java.util.List;
-import lombok.Data;
+import org.jeecg.modules.hotel.entity.Hotel;
 import org.jeecg.modules.hotel.entity.HotelGuestRoom;
+import org.jeecg.modules.hotel.entity.HotelAttachment;
+import lombok.Data;
 import org.jeecgframework.poi.excel.annotation.Excel;
+import org.jeecgframework.poi.excel.annotation.ExcelEntity;
 import org.jeecgframework.poi.excel.annotation.ExcelCollection;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -84,14 +87,6 @@ public class HotelPage {
 	@Excel(name = "酒店政策", width = 15)
 	@ApiModelProperty(value = "酒店政策")
 	private String policy;
-	/**法人照片*/
-	@Excel(name = "法人照片", width = 15)
-	@ApiModelProperty(value = "法人照片")
-	private String corporatePhotos;
-	/**营业执照*/
-	@Excel(name = "营业执照", width = 15)
-	@ApiModelProperty(value = "营业执照")
-	private String businessLicense;
 	/**银行账户*/
 	@Excel(name = "银行账户", width = 15)
 	@ApiModelProperty(value = "银行账户")
@@ -116,5 +111,8 @@ public class HotelPage {
 	@ExcelCollection(name="酒店客房信息")
 	@ApiModelProperty(value = "酒店客房信息")
 	private List<HotelGuestRoom> hotelGuestRoomList;
+	@ExcelCollection(name="酒店上传的附件(图片)信息")
+	@ApiModelProperty(value = "酒店上传的附件(图片)信息")
+	private List<HotelAttachment> hotelAttachmentList;
 	
 }

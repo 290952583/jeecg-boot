@@ -23,10 +23,12 @@ import org.jeecg.common.api.vo.Result;
 import org.jeecg.common.system.query.QueryGenerator;
 import org.jeecg.common.util.oConvertUtils;
 import org.jeecg.modules.hotel.entity.HotelGuestRoom;
+import org.jeecg.modules.hotel.entity.HotelAttachment;
 import org.jeecg.modules.hotel.entity.Hotel;
 import org.jeecg.modules.hotel.vo.HotelPage;
 import org.jeecg.modules.hotel.service.IHotelService;
 import org.jeecg.modules.hotel.service.IHotelGuestRoomService;
+import org.jeecg.modules.hotel.service.IHotelAttachmentService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -57,6 +59,8 @@ public class HotelController {
 	private IHotelService hotelService;
 	@Autowired
 	private IHotelGuestRoomService hotelGuestRoomService;
+	@Autowired
+	private IHotelAttachmentService hotelAttachmentService;
 	
 	/**
 	 * 分页列表查询
@@ -92,9 +96,26 @@ public class HotelController {
 	public Result<?> add(@RequestBody HotelPage hotelPage) {
 		Hotel hotel = new Hotel();
 		BeanUtils.copyProperties(hotelPage, hotel);
-		hotelService.saveMain(hotel, hotelPage.getHotelGuestRoomList());
+		hotelService.saveMain(hotel, hotelPage.getHotelGuestRoomList(),hotelPage.getHotelAttachmentList());
 		return Result.ok("添加成功！");
 	}
+
+	 /**
+	  *   修改状态
+	  *
+	  * @param hotelId id
+	  * @param status 状态
+	  * @return
+	  */
+	 @AutoLog(value = "商家/酒店信息-修改状态")
+	 @ApiOperation(value="商家/酒店信息-修改状态", notes="商家/酒店信息-修改状态")
+	 @PostMapping(value = "/status")
+	 public Result<?> status(String hotelId, Integer status) {
+		 hotelService.updateStatus(hotelId, status);
+		 return Result.ok("！");
+	 }
+
+
 	
 	/**
 	 *  编辑
@@ -112,7 +133,7 @@ public class HotelController {
 		if(hotelEntity==null) {
 			return Result.error("未找到对应数据");
 		}
-		hotelService.updateMain(hotel, hotelPage.getHotelGuestRoomList());
+		hotelService.updateMain(hotel, hotelPage.getHotelGuestRoomList(),hotelPage.getHotelAttachmentList());
 		return Result.ok("编辑成功!");
 	}
 	
@@ -158,6 +179,9 @@ public class HotelController {
 		if(hotel==null) {
 			return Result.error("未找到对应数据");
 		}
+		if(!Hotel.HotelStatus.ALREADY_EXAMINE.getStatus().equals(hotel.getStatus())){
+			return Result.error("账号异常：" + Hotel.HotelStatus.valueByStatus(hotel.getStatus()).getName());
+		}
 		return Result.ok(hotel);
 
 	}
@@ -174,6 +198,19 @@ public class HotelController {
 	public Result<?> queryHotelGuestRoomListByMainId(@RequestParam(name="id",required=true) String id) {
 		List<HotelGuestRoom> hotelGuestRoomList = hotelGuestRoomService.selectByMainId(id);
 		return Result.ok(hotelGuestRoomList);
+	}
+	/**
+	 * 通过id查询
+	 *
+	 * @param id
+	 * @return
+	 */
+	@AutoLog(value = "酒店上传的附件(图片)信息集合-通过id查询")
+	@ApiOperation(value="酒店上传的附件(图片)信息集合-通过id查询", notes="酒店上传的附件(图片)信息-通过id查询")
+	@GetMapping(value = "/queryHotelAttachmentByMainId")
+	public Result<?> queryHotelAttachmentListByMainId(@RequestParam(name="id",required=true) String id) {
+		List<HotelAttachment> hotelAttachmentList = hotelAttachmentService.selectByMainId(id);
+		return Result.ok(hotelAttachmentList);
 	}
 
     /**
@@ -207,6 +244,8 @@ public class HotelController {
           BeanUtils.copyProperties(main, vo);
           List<HotelGuestRoom> hotelGuestRoomList = hotelGuestRoomService.selectByMainId(main.getId());
           vo.setHotelGuestRoomList(hotelGuestRoomList);
+          List<HotelAttachment> hotelAttachmentList = hotelAttachmentService.selectByMainId(main.getId());
+          vo.setHotelAttachmentList(hotelAttachmentList);
           pageList.add(vo);
       }
 
@@ -241,7 +280,7 @@ public class HotelController {
               for (HotelPage page : list) {
                   Hotel po = new Hotel();
                   BeanUtils.copyProperties(page, po);
-                  hotelService.saveMain(po, page.getHotelGuestRoomList());
+                  hotelService.saveMain(po, page.getHotelGuestRoomList(),page.getHotelAttachmentList());
               }
               return Result.ok("文件导入成功！数据行数:" + list.size());
           } catch (Exception e) {
