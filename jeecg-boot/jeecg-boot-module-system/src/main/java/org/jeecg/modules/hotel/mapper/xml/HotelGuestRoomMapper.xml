@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.jeecg.modules.demo.hotel.mapper.HotelGuestRoomMapper">
+<mapper namespace="org.jeecg.modules.hotel.mapper.HotelGuestRoomMapper">
 
 	<delete id="deleteByMainId" parameterType="java.lang.String">
 		DELETE 
 		FROM  hotel_guest_room 
 		WHERE
-			 hotel_id = #{mainId} 	</delete>
+			 hotel_id = #{mainId}
+	 </delete>
 	
-	<select id="selectByMainId" parameterType="java.lang.String" resultType="org.jeecg.modules.demo.hotel.entity.HotelGuestRoom">
+	<select id="selectByMainId" parameterType="java.lang.String" resultType="org.jeecg.modules.hotel.entity.HotelGuestRoom">
 		SELECT * 
 		FROM  hotel_guest_room
 		WHERE
-			 hotel_id = #{mainId} 	</select>
+			 hotel_id = #{mainId}
+	 </select>
 </mapper>

@@ -1,11 +1,9 @@
 package org.jeecg.modules.hotel.vo;
 
 import java.util.List;
-import org.jeecg.modules.hotel.entity.Hotel;
-import org.jeecg.modules.hotel.entity.HotelGuestRoom;
 import lombok.Data;
+import org.jeecg.modules.hotel.entity.HotelGuestRoom;
 import org.jeecgframework.poi.excel.annotation.Excel;
-import org.jeecgframework.poi.excel.annotation.ExcelEntity;
 import org.jeecgframework.poi.excel.annotation.ExcelCollection;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -110,6 +108,10 @@ public class HotelPage {
 	@Excel(name = "提示信息", width = 15)
 	@ApiModelProperty(value = "提示信息")
 	private String poinInfo;
+	/**地理位置*/
+	@Excel(name = "地理位置", width = 15)
+	@ApiModelProperty(value = "地理位置")
+	private String position;
 	
 	@ExcelCollection(name="酒店客房信息")
 	@ApiModelProperty(value = "酒店客房信息")
