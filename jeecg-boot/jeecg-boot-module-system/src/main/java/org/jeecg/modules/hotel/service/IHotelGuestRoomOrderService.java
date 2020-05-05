@@ -11,4 +11,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IHotelGuestRoomOrderService extends IService<HotelGuestRoomOrder> {
 
+    /**
+     * 创建客房订单
+     * @param hotelGuestRoomOrder
+     */
+    void crateOrder(HotelGuestRoomOrder hotelGuestRoomOrder);
 }

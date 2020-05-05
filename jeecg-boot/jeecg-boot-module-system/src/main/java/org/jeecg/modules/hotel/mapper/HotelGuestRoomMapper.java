@@ -15,4 +15,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 public interface HotelGuestRoomMapper extends BaseMapper<HotelGuestRoom> {
 
     void deleteByMainId(String id);
+
+    void batchInsert(List<HotelGuestRoom> list);
 }

@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.jeecg.common.system.base.entity.JeecgEntity;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.jeecgframework.poi.excel.annotation.Excel;
 import org.jeecg.common.aspect.annotation.Dict;
@@ -20,7 +21,7 @@ import lombok.experimental.Accessors;
 /**
  * @Description: 酒店客房订单表
  * @Author: jeecg-boot
- * @Date:   2020-05-04
+ * @Date:   2020-05-05
  * @Version: V1.0
  */
 @Data
@@ -28,37 +29,9 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value="hotel_guest_room_order对象", description="酒店客房订单表")
-public class HotelGuestRoomOrder implements Serializable {
+public class HotelGuestRoomOrder extends JeecgEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
-	/**主键*/
-	@TableId(type = IdType.ID_WORKER_STR)
-    @ApiModelProperty(value = "主键")
-    private String id;
-	/**创建人*/
-	@Excel(name = "创建人", width = 15)
-    @ApiModelProperty(value = "创建人")
-    private String createBy;
-	/**创建日期*/
-	@Excel(name = "创建日期", width = 20, format = "yyyy-MM-dd HH:mm:ss")
-	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "创建日期")
-    private Date createTime;
-	/**更新人*/
-	@Excel(name = "更新人", width = 15)
-    @ApiModelProperty(value = "更新人")
-    private String updateBy;
-	/**更新日期*/
-	@Excel(name = "更新日期", width = 20, format = "yyyy-MM-dd HH:mm:ss")
-	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "更新日期")
-    private Date updateTime;
-	/**所属部门*/
-	@Excel(name = "所属部门", width = 15)
-    @ApiModelProperty(value = "所属部门")
-    private String sysOrgCode;
 	/**下单时间*/
 	@Excel(name = "下单时间", width = 15, format = "yyyy-MM-dd")
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd")
@@ -95,4 +68,8 @@ public class HotelGuestRoomOrder implements Serializable {
 	@Excel(name = "收取的手续费", width = 15)
     @ApiModelProperty(value = "收取的手续费")
     private BigDecimal serviceCharge;
+	/**客房id*/
+	@Excel(name = "客房id", width = 15)
+    @ApiModelProperty(value = "客房id")
+    private String hotelGuestRoomId;
 }

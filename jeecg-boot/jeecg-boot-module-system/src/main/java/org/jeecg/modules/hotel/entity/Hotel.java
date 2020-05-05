@@ -92,7 +92,7 @@ public class Hotel extends JeecgEntity implements Serializable {
     @ApiModelProperty(value = "地理位置")
     private String position;
     /**酒店的状态（0：未审核，1：已审核，2：已冻结）*/
-    @Excel(name = "酒店的状态（0：未审核，1：已审核，2：已冻结）", width = 15)
+    @Excel(name = "酒店的状态（0：未审核，1：已审核，2：已冻结, 3：未营业）", width = 15)
     @ApiModelProperty(value = "酒店的状态（0：未审核，1：已审核，2：已冻结）")
     private java.lang.Integer status;
 
@@ -100,7 +100,8 @@ public class Hotel extends JeecgEntity implements Serializable {
     public enum HotelStatus {
         WAIT_EXAMINE(0, "待审核"),
         ALREADY_EXAMINE(1, "已审核"),
-        ALREADY_FROZE(2, "已冻结");
+        ALREADY_FROZE(2, "已冻结"),
+        UN_OPEN(2, "未营业");
 
         private Integer status;
 

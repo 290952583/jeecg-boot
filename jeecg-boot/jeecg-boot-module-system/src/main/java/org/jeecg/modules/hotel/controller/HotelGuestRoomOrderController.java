@@ -82,7 +82,7 @@ public class HotelGuestRoomOrderController extends JeecgController<HotelGuestRoo
 	@ApiOperation(value="酒店客房订单表-添加", notes="酒店客房订单表-添加")
 	@PostMapping(value = "/add")
 	public Result<?> add(@RequestBody HotelGuestRoomOrder hotelGuestRoomOrder) {
-		hotelGuestRoomOrderService.save(hotelGuestRoomOrder);
+		hotelGuestRoomOrderService.crateOrder(hotelGuestRoomOrder);
 		return Result.ok("添加成功！");
 	}
 	

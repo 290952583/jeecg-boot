@@ -1,6 +1,11 @@
 package org.jeecg.common.system.base.entity;
 
 import java.io.Serializable;
+import java.util.Date;
+
+import cn.hutool.core.io.resource.ResourceUtil;
+import org.apache.shiro.SecurityUtils;
+import org.jeecg.common.system.vo.LoginUser;
 import org.jeecgframework.poi.excel.annotation.Excel;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -49,4 +54,10 @@ public class JeecgEntity implements Serializable {
 	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private java.util.Date updateTime;
+
+	public void setDefaultValue(){
+		LoginUser sysUser = (LoginUser) SecurityUtils.getSubject().getPrincipal();
+		this.setCreateBy(sysUser.getId());
+		this.setCreateTime(new Date());
+	}
 }

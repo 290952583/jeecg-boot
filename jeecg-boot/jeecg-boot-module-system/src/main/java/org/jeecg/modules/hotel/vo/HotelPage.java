@@ -1,6 +1,9 @@
 package org.jeecg.modules.hotel.vo;
 
+import java.math.BigDecimal;
 import java.util.List;
+
+import org.checkerframework.checker.units.qual.A;
 import org.jeecg.modules.hotel.entity.Hotel;
 import org.jeecg.modules.hotel.entity.HotelGuestRoom;
 import org.jeecg.modules.hotel.entity.HotelAttachment;
@@ -111,8 +114,20 @@ public class HotelPage {
 	@ExcelCollection(name="酒店客房信息")
 	@ApiModelProperty(value = "酒店客房信息")
 	private List<HotelGuestRoom> hotelGuestRoomList;
+
 	@ExcelCollection(name="酒店上传的附件(图片)信息")
 	@ApiModelProperty(value = "酒店上传的附件(图片)信息")
 	private List<HotelAttachment> hotelAttachmentList;
-	
+
+	@ApiModelProperty(value = "创建酒店时批量创建客房的层数")
+	private Integer floors;
+
+	@ApiModelProperty(value = "创建酒店时批量创建客房每层的房间数量")
+	private Integer rooms;
+
+	@ApiModelProperty(value = "批量创建客房的默认房价")
+	private BigDecimal price;
+
+	@ApiModelProperty(value = "默认配置的id")
+	private List<String> configIds;
 }

@@ -5,6 +5,7 @@ import org.jeecg.modules.hotel.entity.HotelAttachment;
 import org.jeecg.modules.hotel.entity.Hotel;
 import com.baomidou.mybatisplus.extension.service.IService;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public interface IHotelService extends IService<Hotel> {
 	 * 添加一对多
 	 * 
 	 */
-	public void saveMain(Hotel hotel, List<HotelGuestRoom> hotelGuestRoomList, List<HotelAttachment> hotelAttachmentList) ;
+	public void saveMain(Hotel hotel, Integer floors, Integer rooms, BigDecimal price, List<String> configIds, List<HotelGuestRoom> hotelGuestRoomList, List<HotelAttachment> hotelAttachmentList) ;
 	
 	/**
 	 * 修改一对多

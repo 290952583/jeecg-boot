@@ -22,4 +22,5 @@ public interface SysAgentMapper extends BaseMapper<SysAgent> {
 
     SysAgentModel findById(@Param("id") String id);
 
+    List<SysAgent> selectAgentByHotelId(String hotelId);
 }

@@ -79,6 +79,9 @@
             agent.id = #{id}
 
     </select>
+    <select id="selectAgentByHotelId" resultType="org.jeecg.modules.system.entity.SysAgent">
+
+    </select>
 
 
 </mapper>

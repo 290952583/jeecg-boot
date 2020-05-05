@@ -1,6 +1,5 @@
 package org.jeecg.modules.hotel.controller;
 
-import java.io.UnsupportedEncodingException;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -39,7 +38,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
-import com.alibaba.fastjson.JSON;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.jeecg.common.aspect.annotation.AutoLog;
@@ -96,7 +94,7 @@ public class HotelController {
 	public Result<?> add(@RequestBody HotelPage hotelPage) {
 		Hotel hotel = new Hotel();
 		BeanUtils.copyProperties(hotelPage, hotel);
-		hotelService.saveMain(hotel, hotelPage.getHotelGuestRoomList(),hotelPage.getHotelAttachmentList());
+		hotelService.saveMain(hotel, hotelPage.getFloors(), hotelPage.getRooms(), hotelPage.getPrice(), hotelPage.getConfigIds(), hotelPage.getHotelGuestRoomList(),hotelPage.getHotelAttachmentList());
 		return Result.ok("添加成功！");
 	}
 
@@ -112,10 +110,8 @@ public class HotelController {
 	 @PostMapping(value = "/status")
 	 public Result<?> status(String hotelId, Integer status) {
 		 hotelService.updateStatus(hotelId, status);
-		 return Result.ok("！");
+		 return Result.ok("状态已更新！新状态：" + Hotel.HotelStatus.valueByStatus(status));
 	 }
-
-
 	
 	/**
 	 *  编辑
@@ -280,7 +276,7 @@ public class HotelController {
               for (HotelPage page : list) {
                   Hotel po = new Hotel();
                   BeanUtils.copyProperties(page, po);
-                  hotelService.saveMain(po, page.getHotelGuestRoomList(),page.getHotelAttachmentList());
+                  hotelService.saveMain(po, null, null, null, null, page.getHotelGuestRoomList(),page.getHotelAttachmentList());
               }
               return Result.ok("文件导入成功！数据行数:" + list.size());
           } catch (Exception e) {

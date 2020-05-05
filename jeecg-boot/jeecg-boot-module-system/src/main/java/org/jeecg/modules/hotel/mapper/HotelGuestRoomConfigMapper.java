@@ -16,4 +16,6 @@ public interface HotelGuestRoomConfigMapper extends BaseMapper<HotelGuestRoomCon
 	public boolean deleteByMainId(@Param("mainId") String mainId);
     
 	public List<HotelGuestRoomConfig> selectByMainId(@Param("mainId") String mainId);
+
+    void batchInsert(List<HotelGuestRoomConfig> configList);
 }
