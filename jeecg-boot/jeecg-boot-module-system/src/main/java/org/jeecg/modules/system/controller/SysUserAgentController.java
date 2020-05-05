@@ -185,7 +185,7 @@ public class SysUserAgentController {
 	public Result<SysUserAgent> queryByUserName(@RequestParam(name="userName",required=true) String userName) {
 		Result<SysUserAgent> result = new Result<SysUserAgent>();
 		LambdaQueryWrapper<SysUserAgent> queryWrapper = new LambdaQueryWrapper<SysUserAgent>();
-		queryWrapper.eq(SysUserAgent::getUserName, userName);
+		queryWrapper.eq(SysUserAgent::getUserId, userName);
 		SysUserAgent sysUserAgent = sysUserAgentService.getOne(queryWrapper);
 		if(sysUserAgent==null) {
 			result.error500("未找到对应实体");
@@ -200,7 +200,6 @@ public class SysUserAgentController {
       * 导出excel
    *
    * @param request
-   * @param response
    */
   @RequestMapping(value = "/exportXls")
   public ModelAndView exportXls(SysUserAgent sysUserAgent,HttpServletRequest request) {

@@ -53,6 +53,9 @@ public class SysPermissionController {
 	@Autowired
 	private ISysDepartPermissionService sysDepartPermissionService;
 
+	@Autowired
+	private ISysAgentPermissionService sysAgentPermissionService;
+
 	/**
 	 * 加载数据节点
 	 * 
@@ -788,6 +791,30 @@ public class SysPermissionController {
 			this.sysDepartPermissionService.saveDepartPermission(departId, permissionIds, lastPermissionIds);
 			result.success("保存成功！");
 			log.info("======部门授权成功=====耗时:" + (System.currentTimeMillis() - start) + "毫秒");
+		} catch (Exception e) {
+			result.error500("授权失败！");
+			log.error(e.getMessage(), e);
+		}
+		return result;
+	}
+
+	/**
+	 * 保存代理商授权
+	 *
+	 * @return
+	 */
+	@RequestMapping(value = "/saveAgentPermission", method = RequestMethod.POST)
+	@RequiresRoles({ "admin" })
+	public Result<String> saveAgentPermission(@RequestBody JSONObject json) {
+		long start = System.currentTimeMillis();
+		Result<String> result = new Result<>();
+		try {
+			String agentId = json.getString("agentId");
+			String permissionIds = json.getString("permissionIds");
+			String lastPermissionIds = json.getString("lastpermissionIds");
+			this.sysAgentPermissionService.saveAgentPermission(agentId, permissionIds, lastPermissionIds);
+			result.success("保存成功！");
+			log.info("======代理商授权成功=====耗时:" + (System.currentTimeMillis() - start) + "毫秒");
 		} catch (Exception e) {
 			result.error500("授权失败！");
 			log.error(e.getMessage(), e);

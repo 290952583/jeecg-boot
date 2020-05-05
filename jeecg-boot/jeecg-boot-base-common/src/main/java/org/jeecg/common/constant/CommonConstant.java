@@ -205,8 +205,10 @@ public interface CommonConstant {
     public static final String UPLOAD_TYPE_OSS = "alioss";
 
     /**
-     * 员工身份 （1:普通员工  2:上级）
+     * 用户身份 （1:系统管理员  2:代理商  3：商家  4：普通用户）
      */
     public static final Integer USER_IDENTITY_1 = 1;
     public static final Integer USER_IDENTITY_2 = 2;
+    public static final Integer USER_IDENTITY_3 = 3;
+    public static final Integer USER_IDENTITY_4 = 4;
 }

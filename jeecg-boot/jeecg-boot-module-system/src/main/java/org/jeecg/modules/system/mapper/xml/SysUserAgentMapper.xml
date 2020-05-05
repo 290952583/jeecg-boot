@@ -2,4 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.jeecg.modules.system.mapper.SysUserAgentMapper">
 
+    <select id="queryAgentIds" resultType="java.lang.String">
+        SELECT
+        sua.agent_id
+        FROM
+        sys_user_agent sua
+        WHERE
+        sua.user_id = #{userId}
+    </select>
+
 </mapper>

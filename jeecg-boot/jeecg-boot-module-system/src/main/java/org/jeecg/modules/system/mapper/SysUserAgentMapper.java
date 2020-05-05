@@ -14,4 +14,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface SysUserAgentMapper extends BaseMapper<SysUserAgent> {
 
+    /**
+     * 查询用户拥有的代理商
+     * @param userId 用户id
+     * @return
+     */
+    List<String> queryAgentIds(@Param("userId") String userId);
+
 }

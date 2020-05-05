@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jeecg.modules.system.mapper.SysAgentMapper">
+    <select id="queryAgentList" resultType="org.jeecg.common.system.vo.SysAgentModel">
+        SELECT
+        agent.id AS id,
+        agent.parent_id AS parentId,
+        agent.agent_name AS agentName,
+        agent.`level` AS `level`,
+        agent.agent_order AS agentOrder,
+        agent.description AS description,
+        agent.mobile AS mobile,
+        agent.email AS email,
+        agent.address AS address,
+        agent.`status` AS `status`,
+        agent.remark AS remark,
+        area.area_id AS areaId,
+        area.area_code AS areaCode,
+        area.area_name AS areaName
+    FROM
+        sys_agent agent
+        INNER JOIN sys_area area ON area.area_id = agent.area_id
+    WHERE
+        1 = 1
+        <if test="agentIds != null and agentIds.size > 0" >
+            AND ( agent.id in
+            <foreach collection="agentIds" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+            OR agent.parent_id in
+            <foreach collection="agentIds" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+            )
+        </if>
+        <if test="keyword != null and keyword != ''">
+            AND agent.agent_name like CONCAT('%',#{keyword, jdbcType = VARCHAR}, '%')
+        </if>
+        AND agent.deleted_time = 0
+    ORDER BY
+        area.area_id ASC,
+        agent.agent_order ASC
+    </select>
+
+
+    <select id="getByAreaIdAndAgentName" resultType="org.jeecg.common.system.vo.SysAgentModel">
+        SELECT
+            sa.id as id,
+            sa.area_id as areaId,
+            sa.agent_name as agentName
+        FROM
+            sys_agent sa
+        WHERE
+            sa.area_id = #{areaId}
+            AND sa.agent_name = #{agentName}
+            AND sa.deleted_time = 0
+    </select>
+
+    <select id="findById" resultType="org.jeecg.common.system.vo.SysAgentModel">
+        SELECT
+            agent.id AS id,
+            agent.parent_id AS parentId,
+            agent.agent_name AS agentName,
+            agent.`level` AS `level`,
+            agent.agent_order AS agentOrder,
+            agent.description AS description,
+            agent.mobile AS mobile,
+            agent.email AS email,
+            agent.address AS address,
+            agent.`status` AS `status`,
+            agent.remark AS remark,
+            area.area_id AS areaId,
+            area.area_code AS areaCode,
+            area.area_name AS areaName
+        FROM
+            sys_agent agent
+            INNER JOIN sys_area area ON area.area_id = agent.area_id
+        WHERE
+            agent.id = #{id}
+
+    </select>
+
+
+</mapper>

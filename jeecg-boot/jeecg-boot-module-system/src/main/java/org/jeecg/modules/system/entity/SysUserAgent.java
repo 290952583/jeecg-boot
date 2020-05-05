@@ -24,12 +24,12 @@ public class SysUserAgent implements Serializable {
 	/**序号*/
 	@TableId(type = IdType.ID_WORKER_STR)
 	private java.lang.String id;
-	/**用户名*/
-	@Excel(name = "用户名", width = 15)
-	private java.lang.String userName;
-	/**代理人用户名*/
-	@Excel(name = "代理人用户名", width = 15)
-	private java.lang.String agentUserName;
+	/**用户id*/
+	@Excel(name = "用户id", width = 15)
+	private java.lang.String userId;
+	/**代理商id*/
+	@Excel(name = "代理商id", width = 15)
+	private java.lang.String agentId;
 	/**代理开始时间*/
 	@Excel(name = "代理开始时间", width = 20, format = "yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
@@ -65,10 +65,5 @@ public class SysUserAgent implements Serializable {
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private java.util.Date updateTime;
-	/**所属部门*/
-	@Excel(name = "所属部门", width = 15)
-	private java.lang.String sysOrgCode;
-	/**所属公司*/
-	@Excel(name = "所属公司", width = 15)
-	private java.lang.String sysCompanyCode;
+
 }

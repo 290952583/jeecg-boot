@@ -158,9 +158,9 @@ public class SysUser implements Serializable {
     private String activitiSync;
 
     /**
-     * 身份（0 普通成员 1 上级）
+     * 身份（1 系统管理员 2 代理商  3 商家  4 普通用户）
      */
-    @Excel(name="（1普通成员 2上级）",width = 15)
+    @Excel(name="（1 系统管理员 2 代理商  3 商家  4 普通用户）",width = 15)
     private Integer identity;
 
     /**
